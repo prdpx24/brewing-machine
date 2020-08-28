@@ -5,7 +5,7 @@ import random
 from threading import Thread
 
 # low level APIs to interact with brewing machine
-from api.machine import BrewingMachine
+from api.machine import BrewingMachine, parse_and_create_brewing_machine_from_json
 
 # Parser for CLI
 parser = argparse.ArgumentParser(description="Brewing Machine CLI")
@@ -25,24 +25,27 @@ def is_valid_json(parser, arg):
 # main driver application
 def main(args):
     parsed_json = args.json
-    outlets = parsed_json["machine"]["outlets"]["count_n"]
-    ingredients_to_store = parsed_json["machine"]["total_items_quantity"]
-    beverage_configs = parsed_json["machine"]["beverages"]
-    brewing_machine = BrewingMachine(outlets=outlets,
-        ingredient_to_store=ingredients_to_store, beverage_configs=beverage_configs
-    )
+    brewing_machine = parse_and_create_brewing_machine_from_json(parsed_json)
     # print(brewing_machine)
     all_offered_beverages = list(brewing_machine.beverages_offered_by_machine.keys())
 
-    for outlet in range(outlets):
-        # print("Outlet-", outlet+1)
+    for outlet in range(brewing_machine.outlets):
+        # pick any random beverage offered by our brewing machine
         beverage_name = random.choice(all_offered_beverages)
-        # print(beverage_name)
-        p = Thread(target=brewing_machine.prepare_beverage, args=(beverage_name,))
-        p.start()
+        t = Thread(target=brewing_machine.prepare_beverage, args=(beverage_name,))
+        t.start()
 
 
 
 if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
+
+# NOTE:
+# Python2 vs Python3 
+###########################################
+# Case of print function and thread safety 
+############################################
+# If you run this with python2 i.e. `python2 app.py` , it might show one/two  extra newlines 
+# because print function in python2.7 is not thread safe
+# however if you run it with python3 like `python3 app.py`, print function will work perfectly fine 

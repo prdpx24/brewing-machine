@@ -8,6 +8,10 @@ class Ingredient:
 
     def __str__(self):
         return "{} - {}".format(self.name, self.quantity_in_ml)
+    
+    def refill_from_ingredient_config(self, ingredient_config):
+        quantity_in_ml = ingredient_config.get(self.name)
+        self.refill(quantity_in_ml)
 
     def refill(self, quantity_in_ml):
         if self.quantity_in_ml > 0:
