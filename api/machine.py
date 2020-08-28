@@ -25,7 +25,7 @@ class BrewingMachine:
         self.create_beverages_offered_by_machine(beverage_configs)
 
     def __str__(self):
-        return "N={}\n\ningredients={}\n\nbeverages={}".format(self.outlets, self.ingredient_store, self.beverages_offered_by_machine)
+        return "Outlets={}\n\nIngredients={}\n\nBeverages={}".format(self.outlets, self.ingredient_store, self.beverages_offered_by_machine)
 
     def create_ingredient_store(self, ingredients={}):
         for item_name, item_quantity in ingredients.items():

@@ -26,7 +26,7 @@ def is_valid_json(parser, arg):
 def main(args):
     parsed_json = args.json
     brewing_machine = parse_and_create_brewing_machine_from_json(parsed_json)
-    # print(brewing_machine)
+
     all_offered_beverages = list(brewing_machine.beverages_offered_by_machine.keys())
 
     for outlet in range(brewing_machine.outlets):
@@ -44,7 +44,7 @@ if __name__ == "__main__":
 # NOTE:
 # Python2 vs Python3 
 ###########################################
-# Case of print function and thread safety 
+# print function and thread safety 
 ############################################
 # If you run this with python2 i.e. `python2 app.py` , it might show one/two  extra newlines 
 # because print function in python2.7 is not thread safe
