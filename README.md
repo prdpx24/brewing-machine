@@ -4,7 +4,7 @@
 # Installation
 * Clone the repo
 ```bash
-git clone https://github.com/prdpx24/brewing-machine
+git clone https://github.com/prdpx24/brewing-machine.git
 ```
 # Tests
 * Automated Testing
